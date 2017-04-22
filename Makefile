@@ -6,7 +6,10 @@ all: kp7
 print:    raz_matrix.o
 	$(CC) $^ -o $@
 
-kp7:  raz_matrix.o kp7.o
+complex: complex.o
+	$(CC) $^ -o $@
+
+kp7: complex.o raz_matrix.o kp7.o
 	$(CC) $^ -o $@
 
 clean:
