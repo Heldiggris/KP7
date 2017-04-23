@@ -63,7 +63,11 @@ void print_matrochlen(Raz *mat, Raz_ind *mat_ind, double a, double b, int n)
                     t_ind++;
                 }
                 for (;t_j < mat->j; ++t_j) {
-                    printf("0     ");
+                    if (t_j == ind_s) {
+                        printf("%0.2lf\t", b);
+                    } else {
+                        printf("0\t");
+                    }
                 }
                 if (t_j == ind_s) {
                     (mat->value.b * a < 0)? printf("%.2lf%.2lfi\t", mat->value.a * a + b, mat->value.b * a) : printf("%.2lf+%.2lfi\t", mat->value.a * a + b, mat->value.b * a);
@@ -72,7 +76,11 @@ void print_matrochlen(Raz *mat, Raz_ind *mat_ind, double a, double b, int n)
                 }
                 t_j++;
                 for (; t_j < n; ++t_j) {
-                    printf("0\t");
+                    if (t_j == ind_s) {
+                        printf("%0.2lf\t", b);
+                    } else {
+                        printf("0\t");
+                    }
                 }
                 index = mat->next_index;
             } while (mat->next_index != 0);
