@@ -5,6 +5,20 @@
 #include <ctype.h>
 
 
+Raz *raz_ind_create()
+{
+    Raz_ind *mt = (Raz_ind *)malloc(sizeof(Raz_ind));
+    mt->next = NULL;
+    return mt;
+}
+
+Raz *raz_create()
+{
+    Raz *mt = (Raz *)malloc(sizeof(Raz));
+    mt->next = NULL;
+    return mt;
+}
+
 void get_matrix(FILE *f, Raz *mat, Raz_ind *mat_ind, int n, int m)
 {
     int index = 0;
@@ -14,13 +28,13 @@ void get_matrix(FILE *f, Raz *mat, Raz_ind *mat_ind, int n, int m)
     Raz *mat_prev = mat;
     mat->next = NULL;
     for (int i = 0; i < n; ++i) {
-        new_elem_ind = (Raz_ind *)malloc(sizeof(Raz_ind));
+        new_elem_ind = raz_ind_create();
         mat_ind->next = new_elem_ind;
         mat_ind->index = -1;
         for (int j = 0; j < m; ++j) {
             fscanf(f, "%40s", &a);
             if (a[0] != '0') {
-                new_elem = (Raz *)malloc(sizeof(Raz));
+                new_elem = raz_create();
                 mat->next = new_elem;
                 index += 1;
                 mat->j = j;
@@ -37,7 +51,6 @@ void get_matrix(FILE *f, Raz *mat, Raz_ind *mat_ind, int n, int m)
         mat_prev->next_index = 0;
         mat_ind = mat_ind->next;
     }
-    mat->next = NULL;
 }
 
 void print_matrochlen(Raz *mat, Raz_ind *mat_ind, double a, double b, int n)
@@ -100,11 +113,6 @@ void print_matrix(Raz *mat)
     }
 }
 
-void print_complex(complex_t mat)
-{
-    (mat.b < 0)? printf("%.2lf%.2lfi\n", mat.a, mat.b) : printf("%.2lf+%.2lfi\n",mat.a, mat.b);
-}
-
 void print_matrix_f(Raz_ind *mat)
 {
     while (mat->next) {
@@ -112,5 +120,22 @@ void print_matrix_f(Raz_ind *mat)
         mat = mat->next;
     }
     printf("\n");
+}
 
+void rez_destroy(Raz *mat)
+{
+    if (mat->next != NULL) {
+        rez_destroy(mat->next);
+    }
+    free(mat);
+    mat = NULL;
+}
+
+void rez_ind_destroy(Raz_ind *mat)
+{
+    if (mat->next != NULL) {
+        rez_ind_destroy(mat->next);
+    }
+    free(mat);
+    mat = NULL;
 }

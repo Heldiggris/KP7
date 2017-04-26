@@ -20,6 +20,7 @@ void print_matrochlen(Raz *mat, Raz_ind *mat_ind, double a, double b, int n);
 void get_matrix(FILE *f, Raz *mat, Raz_ind *mat_ind, int n, int m);
 void print_matrix(Raz *mat);
 void print_matrix_f(Raz_ind *mat);
-void print_complex(complex_t mat);
+void mat_destroy(Raz *mat);
+void mat_ind_destroy(Raz_ind *mat);
 
 #endif
